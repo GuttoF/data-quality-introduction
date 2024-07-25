@@ -1,4 +1,18 @@
-# Welcome to MkDocs
+# Introdução ao Data Quality
+
+Para resolver o problema, iremos utilizar o seguinte esquema de ETL:
+
+```mermaid
+graph TD
+    A[Configurar Variáveis] --> B[Ler o Banco SQL];
+    B --> V[Validação do Schema de Entrada];
+    B --> |Falha| X[Alerta de Erro];
+    V --> |Falha| X[Alerta de Erro];
+    V --> |Sucesso| C[Transformar os KPIs];
+    C --> Y[Validação do Schema de Saída];
+    Y --> |Falha| Z[Alerta de Erro];
+    Y --> |Sucesso| D[Salvar no DuckDB];
+```
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
