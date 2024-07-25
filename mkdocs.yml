@@ -1,0 +1,7 @@
+site_name: data quality
+repo_url: https://github.com/GuttoF/data-quality-introduction
+repo_name: data-quality/app
+edit_uri: tree/main/docs
+theme:
+  name : material
+  language: pt-BR
