@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 import pandas as pd
+import pandera as pa
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
@@ -31,5 +32,17 @@ def extract(query: str) -> pd.DataFrame:
     engine = create_engine(connection_string)
 
     with engine.connect() as conn, conn.begin():
-        df = pd.read_sql(query, conn)
-        
+        df_crm = pd.read_sql(query, conn)
+
+    return df_crm
+
+
+if __name__ == "__main__":
+    query = "SELECT * FROM produtos_bronze LIMIT 10"
+    df_crm = extract(query=query)
+    schema_crm = pa.infer_schema(df_crm)
+
+    with open("schema_crm.py", "w", encoding="utf-8") as file:
+        file.write(schema_crm.to_script())
+
+    print(df_crm)
