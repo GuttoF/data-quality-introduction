@@ -159,9 +159,9 @@
 <nav aria-label="ProdutoSchema" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#app.schema.ProdutoSchema--attributes">
+<a class="md-nav__link" href="#app.schema.ProdutoSchema--atributos">
 <span class="md-ellipsis">
-      Attributes:
+      Atributos:
     </span>
 </a>
 </li>
@@ -215,9 +215,9 @@
 <nav aria-label="ProdutoSchema" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#app.schema.ProdutoSchema--attributes">
+<a class="md-nav__link" href="#app.schema.ProdutoSchema--atributos">
 <span class="md-ellipsis">
-      Attributes:
+      Atributos:
     </span>
 </a>
 </li>
@@ -250,40 +250,39 @@
     Y --&gt; |Falha| Z[Alerta de Erro];
     Y --&gt; |Sucesso| D[Salvar no DuckDB];
 </div>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
 <h2 id="contrato-de-dados">Contrato de dados</h2>
 <div class="doc doc-object doc-class">
 <a id="app.schema.ProdutoSchema"></a>
 <div class="doc doc-contents first">
 <p class="doc doc-class-bases">
               Bases: <code><span title="pandera.DataFrameModel">DataFrameModel</span></code></p>
-<p>A schema model for validating a DataFrame containing product information using pandera.</p>
-<h3 id="app.schema.ProdutoSchema--attributes">Attributes:</h3>
+<p>Um modelo de esquema para validar um DataFrame contendo informações de produtos usando pandera.</p>
+<h3 id="app.schema.ProdutoSchema--atributos">Atributos:</h3>
 <p>id_produto : Series[int]
-    An integer field representing the product ID. This field is not nullable and its values are coerced to integers.</p>
+    Um campo inteiro que representa o ID do produto. Este campo não é anulável e seus valores são convertidos para inteiros.</p>
 <details class="nome-" open="">
 <summary>Series[str]</summary>
-<p>A string field representing the product name. This field is not nullable and its values are coerced to strings.</p>
+<p>Um campo de string que representa o nome do produto. Este campo não é anulável e seus valores são convertidos para strings.</p>
 </details>
 <details class="quantidade-" open="">
 <summary>Series[float]</summary>
-<p>A float field representing the quantity of the product. This field has a range constraint with values
-between -150.0 and 500.0 (inclusive). It is not nullable and its values are coerced to floats.</p>
+<p>Um campo float que representa a quantidade do produto. Este campo tem uma restrição de intervalo com valores entre
+-150.0 e 500.0 (inclusive). Ele não é anulável e seus valores são convertidos para floats.</p>
 </details>
 <details class="preco-" open="">
 <summary>Series[float]</summary>
-<p>A float field representing the price of the product. This field has a range constraint with values
-between 2.0 and 2000.0 (inclusive). It is not nullable and its values are coerced to floats.</p>
+<p>Um campo float que representa o preço do produto. Este campo tem uma restrição de intervalo com valores entre
+2.0 e 2000.0 (inclusive). Ele não é anulável e seus valores são convertidos para floats.</p>
 </details>
 <details class="categoria-" open="">
 <summary>Series[str]</summary>
-<p>A string field representing the product category. This field is not nullable and its values are coerced to strings.</p>
+<p>Um campo de string que representa a categoria do produto. Este campo não é anulável e seus valores são convertidos para strings.</p>
 </details> <h3 id="app.schema.ProdutoSchema--config">Config:</h3>
 <p>coerce : bool
-    A configuration setting to ensure that the data types are coerced as specified.</p>
+    Uma configuração para garantir que os tipos de dados sejam convertidos conforme especificado.</p>
 <details class="strict-" open="">
 <summary>bool</summary>
-<p>A configuration setting to ensure strict validation of the schema.</p>
+<p>Uma configuração para garantir a validação estrita do esquema.</p>
 </details>
 <details class="quote">
 <summary>Source code in <code>app/schema.py</code></summary>
@@ -331,34 +330,34 @@ between 2.0 and 2000.0 (inclusive). It is not nullable and its values are coerce
 <span class="normal">46</span>
 <span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ProdutoSchema</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">DataFrameModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    A schema model for validating a DataFrame containing product information using pandera.</span>
+<span class="sd">    Um modelo de esquema para validar um DataFrame contendo informações de produtos usando pandera.</span>
 
-<span class="sd">    Attributes:</span>
-<span class="sd">    -----------</span>
+<span class="sd">    Atributos:</span>
+<span class="sd">    ----------</span>
 <span class="sd">    id_produto : Series[int]</span>
-<span class="sd">        An integer field representing the product ID. This field is not nullable and its values are coerced to integers.</span>
+<span class="sd">        Um campo inteiro que representa o ID do produto. Este campo não é anulável e seus valores são convertidos para inteiros.</span>
 
 <span class="sd">    nome : Series[str]</span>
-<span class="sd">        A string field representing the product name. This field is not nullable and its values are coerced to strings.</span>
+<span class="sd">        Um campo de string que representa o nome do produto. Este campo não é anulável e seus valores são convertidos para strings.</span>
 
 <span class="sd">    quantidade : Series[float]</span>
-<span class="sd">        A float field representing the quantity of the product. This field has a range constraint with values</span>
-<span class="sd">        between -150.0 and 500.0 (inclusive). It is not nullable and its values are coerced to floats.</span>
+<span class="sd">        Um campo float que representa a quantidade do produto. Este campo tem uma restrição de intervalo com valores entre</span>
+<span class="sd">        -150.0 e 500.0 (inclusive). Ele não é anulável e seus valores são convertidos para floats.</span>
 
 <span class="sd">    preco : Series[float]</span>
-<span class="sd">        A float field representing the price of the product. This field has a range constraint with values</span>
-<span class="sd">        between 2.0 and 2000.0 (inclusive). It is not nullable and its values are coerced to floats.</span>
+<span class="sd">        Um campo float que representa o preço do produto. Este campo tem uma restrição de intervalo com valores entre</span>
+<span class="sd">        2.0 e 2000.0 (inclusive). Ele não é anulável e seus valores são convertidos para floats.</span>
 
 <span class="sd">    categoria : Series[str]</span>
-<span class="sd">        A string field representing the product category. This field is not nullable and its values are coerced to strings.</span>
+<span class="sd">        Um campo de string que representa a categoria do produto. Este campo não é anulável e seus valores são convertidos para strings.</span>
 
 <span class="sd">    Config:</span>
 <span class="sd">    -------</span>
 <span class="sd">    coerce : bool</span>
-<span class="sd">        A configuration setting to ensure that the data types are coerced as specified.</span>
+<span class="sd">        Uma configuração para garantir que os tipos de dados sejam convertidos conforme especificado.</span>
 
 <span class="sd">    strict : bool</span>
-<span class="sd">        A configuration setting to ensure strict validation of the schema.</span>
+<span class="sd">        Uma configuração para garantir a validação estrita do esquema.</span>
 <span class="sd">    """</span>
 
     <span class="n">id_produto</span><span class="p">:</span> <span class="n">Series</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">coerce</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
