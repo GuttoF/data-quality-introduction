@@ -4,34 +4,34 @@ from pandera.typing import Series
 
 class ProdutoSchema(pa.DataFrameModel):
     """
-    A schema model for validating a DataFrame containing product information using pandera.
+    Um modelo de esquema para validar um DataFrame contendo informações de produtos usando pandera.
 
-    Attributes:
-    -----------
+    Atributos:
+    ----------
     id_produto : Series[int]
-        An integer field representing the product ID. This field is not nullable and its values are coerced to integers.
+        Um campo inteiro que representa o ID do produto. Este campo não é anulável e seus valores são convertidos para inteiros.
 
     nome : Series[str]
-        A string field representing the product name. This field is not nullable and its values are coerced to strings.
+        Um campo de string que representa o nome do produto. Este campo não é anulável e seus valores são convertidos para strings.
 
     quantidade : Series[float]
-        A float field representing the quantity of the product. This field has a range constraint with values
-        between -150.0 and 500.0 (inclusive). It is not nullable and its values are coerced to floats.
+        Um campo float que representa a quantidade do produto. Este campo tem uma restrição de intervalo com valores entre
+        -150.0 e 500.0 (inclusive). Ele não é anulável e seus valores são convertidos para floats.
 
     preco : Series[float]
-        A float field representing the price of the product. This field has a range constraint with values
-        between 2.0 and 2000.0 (inclusive). It is not nullable and its values are coerced to floats.
+        Um campo float que representa o preço do produto. Este campo tem uma restrição de intervalo com valores entre
+        2.0 e 2000.0 (inclusive). Ele não é anulável e seus valores são convertidos para floats.
 
     categoria : Series[str]
-        A string field representing the product category. This field is not nullable and its values are coerced to strings.
+        Um campo de string que representa a categoria do produto. Este campo não é anulável e seus valores são convertidos para strings.
 
     Config:
     -------
     coerce : bool
-        A configuration setting to ensure that the data types are coerced as specified.
+        Uma configuração para garantir que os tipos de dados sejam convertidos conforme especificado.
 
     strict : bool
-        A configuration setting to ensure strict validation of the schema.
+        Uma configuração para garantir a validação estrita do esquema.
     """
 
     id_produto: Series[int] = pa.Field(nullable=False, coerce=True)
