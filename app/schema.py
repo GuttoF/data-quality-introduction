@@ -1,91 +1,47 @@
-from pandera import Check, Column, Index, SchemaModel
+import pandera as pa
+from pandera.typing import Series
 
 
-class SchemaCRM(SchemaModel):
-    id_produto: Column[int] = Column(
-        dtype="int64",
-        checks=[
-            Check.greater_than_or_equal_to(min_value=1.0),
-            Check.less_than_or_equal_to(max_value=10.0),
-        ],
-        nullable=False,
-        unique=False,
-        coerce=False,
-        required=True,
-        regex=False,
-        description=None,
-        title=None,
-    )
-    nome: Column[str] = Column(
-        dtype="object",
-        checks=None,
-        nullable=False,
-        unique=False,
-        coerce=False,
-        required=True,
-        regex=False,
-        description=None,
-        title=None,
-    )
-    quantidade: Column[int] = Column(
-        dtype="int64",
-        checks=[
-            Check.greater_than_or_equal_to(min_value=20.0),
-            Check.less_than_or_equal_to(max_value=200.0),
-        ],
-        nullable=False,
-        unique=False,
-        coerce=False,
-        required=True,
-        regex=False,
-        description=None,
-        title=None,
-    )
-    preco: Column[float] = Column(
-        dtype="float64",
-        checks=[
-            Check.greater_than_or_equal_to(min_value=5.0),
-            Check.less_than_or_equal_to(max_value=120.0),
-        ],
-        nullable=False,
-        unique=False,
-        coerce=False,
-        required=True,
-        regex=False,
-        description=None,
-        title=None,
-    )
-    categoria: Column[str] = Column(
-        dtype="object",
-        checks=None,
-        nullable=False,
-        unique=False,
-        coerce=False,
-        required=True,
-        regex=False,
-        description=None,
-        title=None,
-    )
+class ProdutoSchema(pa.DataFrameModel):
+    """
+    A schema model for validating a DataFrame containing product information using pandera.
 
-    index: Index[int] = Index(
-        dtype="int64",
-        checks=[
-            Check.greater_than_or_equal_to(min_value=0.0),
-            Check.less_than_or_equal_to(max_value=9.0),
-        ],
-        nullable=False,
-        coerce=False,
-        name=None,
-        description=None,
-        title=None,
+    Attributes:
+    -----------
+    id_produto : Series[int]
+        An integer field representing the product ID. This field is not nullable and its values are coerced to integers.
+
+    nome : Series[str]
+        A string field representing the product name. This field is not nullable and its values are coerced to strings.
+
+    quantidade : Series[float]
+        A float field representing the quantity of the product. This field has a range constraint with values
+        between -150.0 and 500.0 (inclusive). It is not nullable and its values are coerced to floats.
+
+    preco : Series[float]
+        A float field representing the price of the product. This field has a range constraint with values
+        between 2.0 and 2000.0 (inclusive). It is not nullable and its values are coerced to floats.
+
+    categoria : Series[str]
+        A string field representing the product category. This field is not nullable and its values are coerced to strings.
+
+    Config:
+    -------
+    coerce : bool
+        A configuration setting to ensure that the data types are coerced as specified.
+
+    strict : bool
+        A configuration setting to ensure strict validation of the schema.
+    """
+
+    id_produto: Series[int] = pa.Field(nullable=False, coerce=True)
+    nome: Series[str] = pa.Field(nullable=False, coerce=True)
+    quantidade: Series[float] = pa.Field(
+        ge=-150.0, le=500.0, nullable=False, coerce=True
     )
+    preco: Series[float] = pa.Field(ge=2.0, le=2000.0, nullable=False, coerce=True)
+    categoria: Series[str] = pa.Field(nullable=False, coerce=True)
 
     class Config:
         coerce = True
-        strict = False
-        unique = None
-        report_duplicates = "all"
-        unique_column_names = False
-        add_missing_columns = False
-        title = None
-        description = None
+        strict = True

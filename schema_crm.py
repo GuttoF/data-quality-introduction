@@ -1,4 +1,4 @@
-from pandera import DataFrameSchema, Column, Check, Index
+from pandera import DataFrameSchema, Column, Check, Index, MultiIndex
 
 schema = DataFrameSchema(
     columns={
@@ -28,7 +28,7 @@ schema = DataFrameSchema(
             title=None,
         ),
         "quantidade": Column(
-            dtype="int64",
+            dtype="float64",
             checks=[
                 Check.greater_than_or_equal_to(min_value=-150.0),
                 Check.less_than_or_equal_to(max_value=200.0),
