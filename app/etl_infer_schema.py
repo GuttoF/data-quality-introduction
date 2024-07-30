@@ -4,7 +4,6 @@ from pathlib import Path
 import pandas as pd
 import pandera as pa
 from dotenv import load_dotenv
-from schema import ProdutoSchema
 from sqlalchemy import create_engine
 
 
@@ -23,17 +22,7 @@ def load_settings():
     return settings
 
 
-@pa.check_output(ProdutoSchema, lazy=True)
 def extract(query: str) -> pd.DataFrame:
-    """
-    Extracts data from a PostgreSQL database using the provided query.
-
-    Args:
-        query (str): The SQL query to execute.
-
-    Returns:
-        pd.DataFrame: The extracted data as a pandas DataFrame.
-    """
     settings = load_settings()
 
     # create connection string
@@ -50,11 +39,11 @@ def extract(query: str) -> pd.DataFrame:
 
 if __name__ == "__main__":
     query = "SELECT * FROM produtos_bronze"
-
     df_crm = extract(query=query)
-    # schema_crm = pa.infer_schema(df_crm)
+    schema_crm = pa.infer_schema(df_crm)
 
-    # with open("schema_crm.py", "w", encoding="utf-8") as file:
-    #    file.write(schema_crm.to_script())
+    with open("schema_crm.py", "w", encoding="utf-8") as file:
+        file.write(schema_crm.to_script())
 
     print(df_crm)
+
