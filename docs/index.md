@@ -14,7 +14,5 @@ graph TD
     Y --> |Sucesso| D[Salvar no DuckDB];
 ```
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
-
 ## Contrato de dados
 ::: app.schema.ProdutoSchema
