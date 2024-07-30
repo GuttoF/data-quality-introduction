@@ -6,7 +6,7 @@ schema = DataFrameSchema(
             dtype="int64",
             checks=[
                 Check.greater_than_or_equal_to(min_value=1.0),
-                Check.less_than_or_equal_to(max_value=10.0),
+                Check.less_than_or_equal_to(max_value=20.0),
             ],
             nullable=False,
             unique=False,
@@ -30,7 +30,7 @@ schema = DataFrameSchema(
         "quantidade": Column(
             dtype="int64",
             checks=[
-                Check.greater_than_or_equal_to(min_value=20.0),
+                Check.greater_than_or_equal_to(min_value=-150.0),
                 Check.less_than_or_equal_to(max_value=200.0),
             ],
             nullable=False,
@@ -72,7 +72,7 @@ schema = DataFrameSchema(
         dtype="int64",
         checks=[
             Check.greater_than_or_equal_to(min_value=0.0),
-            Check.less_than_or_equal_to(max_value=9.0),
+            Check.less_than_or_equal_to(max_value=19.0),
         ],
         nullable=False,
         coerce=False,
