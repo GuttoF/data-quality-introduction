@@ -1,6 +1,8 @@
 import pandera as pa
 from pandera.typing import Series
 
+email_regex = r"[ˆ@]+@[^@]+\.[^@]+"
+
 
 class ProdutoSchema(pa.DataFrameModel):
     """
@@ -41,6 +43,7 @@ class ProdutoSchema(pa.DataFrameModel):
     )
     preco: Series[float] = pa.Field(ge=2.0, le=2000.0, nullable=False, coerce=True)
     categoria: Series[str] = pa.Field(nullable=False, coerce=True)
+    email: Series[str] = pa.Field(regex=email_regex, nullable=False, coerce=True)
 
     class Config:
         coerce = True

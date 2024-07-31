@@ -1,12 +1,13 @@
 import os
+import sys
 from pathlib import Path
 
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 import duckdb
 import pandas as pd
 import pandera as pa
 from dotenv import load_dotenv
-from schema import ProdutoSchema, ProdutoSchemaKPI
-from schema_email import ProdutoSchemaEmail
+from app.schema import ProdutoSchema, ProdutoSchemaKPI
 from sqlalchemy import create_engine
 
 
@@ -26,7 +27,6 @@ def load_settings():
 
 
 @pa.check_output(ProdutoSchema, lazy=True)
-@pa.check_output(ProdutoSchemaEmail, lazy=True)
 def extract(query: str) -> pd.DataFrame:
     """
     Extracts data from a PostgreSQL database using the provided query.
@@ -97,7 +97,9 @@ if __name__ == "__main__":
     df_crm = extract(query=query)
     df_crm_kpi = transform(df_crm)
 
-    with open("infer_schema.json", "r") as file:
-        file.write(df_crm_kpi.to_json())
+    #    with open("infer_schema.csv", "w") as file:
+    #        file.write(df_crm_kpi.to_csv())
+    #with open("infer_schema.json", "w") as file:
+    #    file.write(df_crm_kpi.to_json())
 
     load(df_crm_kpi, table_name="tabela_kpi")

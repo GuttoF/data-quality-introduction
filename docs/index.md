@@ -17,9 +17,6 @@ graph TD
 # Contrato de dados
 ::: app.schema.ProdutoSchema
 
-## Schema com email
-::: app.schema.ProdutoSchemaEmail
-
 # Transformacoes
 
 ## Configura Variáveis

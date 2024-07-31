@@ -1,6 +1,7 @@
 import duckdb
 
-def read_from_duckdb_and_print(table_name: str, db_file: str = "my_duckdb.db"):
+
+def read_from_duckdb_and_print(table_name: str, db_file: str = "duckdb_file.db"):
     """
     Read data from a DuckDB table and print the results.
 
@@ -25,7 +26,7 @@ def read_from_duckdb_and_print(table_name: str, db_file: str = "my_duckdb.db"):
 
 if __name__ == "__main__":
     # Name of the table for querying
-    table_name = "kpi_table"
+    table_name = "tabela_kpi"
 
     # Read data from the table and print the results
     read_from_duckdb_and_print(table_name)
