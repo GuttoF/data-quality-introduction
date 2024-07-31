@@ -5,6 +5,7 @@ import pandas as pd
 import pandera as pa
 from dotenv import load_dotenv
 from schema import ProdutoSchema
+from schema_email import ProdutoSchemaEmail
 from sqlalchemy import create_engine
 
 
@@ -24,6 +25,7 @@ def load_settings():
 
 
 @pa.check_output(ProdutoSchema, lazy=True)
+@pa.check_output(ProdutoSchemaEmail, lazy=True)
 def extract(query: str) -> pd.DataFrame:
     """
     Extracts data from a PostgreSQL database using the provided query.
@@ -46,6 +48,25 @@ def extract(query: str) -> pd.DataFrame:
         df_crm = pd.read_sql(query, conn)
 
     return df_crm
+
+
+@pa.check_input(ProdutoSchema, lazy=True)
+def transform(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transforms the given DataFrame by adding new columns and modifying existing ones.
+    
+    Args:
+        df (pd.DataFrame): The input DataFrame to be transformed.
+        
+    Returns:
+        pd.DataFrame: The transformed DataFrame.
+    """
+    df["valor_total_estoque"] = df["quantidade"] * df["preco"]
+    df["categoria_normalizada"] = df["categoria"].str.lower()
+    # True se quantidade for maior que 0, False caso contrário
+    df["disponibilidade"] = df["quantidade"] > 0
+    
+    return df
 
 
 if __name__ == "__main__":
