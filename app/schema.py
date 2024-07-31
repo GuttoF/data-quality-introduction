@@ -47,7 +47,7 @@ class ProdutoSchema(pa.DataFrameModel):
         strict = True
 
 
-class ProductSchemaKPI(ProdutoSchema):
+class ProdutoSchemaKPI(ProdutoSchema):
     valor_total_estoque: Series[float] = pa.Field(
         ge=0
     )  # The total stock value must be >= 0
