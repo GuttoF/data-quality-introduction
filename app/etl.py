@@ -1,10 +1,13 @@
 import os
+import sys
 from pathlib import Path
 
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+import duckdb
 import pandas as pd
 import pandera as pa
 from dotenv import load_dotenv
-from schema import ProdutoSchema
+from app.schema import ProdutoSchema, ProdutoSchemaKPI
 from sqlalchemy import create_engine
 
 
@@ -48,13 +51,55 @@ def extract(query: str) -> pd.DataFrame:
     return df_crm
 
 
+@pa.check_input(ProdutoSchema, lazy=True)
+@pa.check_output(ProdutoSchemaKPI, lazy=True)
+def transform(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transforms the given DataFrame by adding new columns and modifying existing ones.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame to be transformed.
+
+    Returns:
+        pd.DataFrame: The transformed DataFrame.
+    """
+    df["valor_total_estoque"] = df["quantidade"] * df["preco"]
+    df["categoria_normalizada"] = df["categoria"].str.lower()
+    # True if the product is available, False otherwise
+    df["disponibilidade"] = df["quantidade"] > 0
+
+    return df
+
+
+def load(df: pd.DataFrame, table_name: str, db_file: str = "duckdb_file.db"):
+    """
+    Loads the given DataFrame into a DuckDB database.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to load into the database.
+        table_name (str): The name of the table to create in the database.
+        db_file (str): The path to the DuckDB database file.
+    """
+    # create a connection to the database
+    conn = duckdb.connect(database=db_file, read_only=False)
+
+    # load the DataFrame into the database
+    conn.register("df_temp", df)
+    conn.execute(f"CREATE OR REPLACE TABLE {table_name} AS SELECT * FROM df_temp")
+
+    # close the connection
+    conn.close()
+
+
 if __name__ == "__main__":
-    query = "SELECT * FROM produtos_bronze"
+    query = "SELECT * FROM produtos_bronze_email"
 
     df_crm = extract(query=query)
-    # schema_crm = pa.infer_schema(df_crm)
+    df_crm_kpi = transform(df_crm)
 
-    # with open("schema_crm.py", "w", encoding="utf-8") as file:
-    #    file.write(schema_crm.to_script())
+    #    with open("infer_schema.csv", "w") as file:
+    #        file.write(df_crm_kpi.to_csv())
+    #with open("infer_schema.json", "w") as file:
+    #    file.write(df_crm_kpi.to_json())
 
-    print(df_crm)
+    load(df_crm_kpi, table_name="tabela_kpi")

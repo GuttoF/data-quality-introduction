@@ -1,6 +1,8 @@
 import pandera as pa
 from pandera.typing import Series
 
+email_regex = r"[ˆ@]+@[^@]+\.[^@]+"
+
 
 class ProdutoSchema(pa.DataFrameModel):
     """
@@ -41,7 +43,20 @@ class ProdutoSchema(pa.DataFrameModel):
     )
     preco: Series[float] = pa.Field(ge=2.0, le=2000.0, nullable=False, coerce=True)
     categoria: Series[str] = pa.Field(nullable=False, coerce=True)
+    email: Series[str] = pa.Field(regex=email_regex, nullable=False, coerce=True)
 
     class Config:
         coerce = True
         strict = True
+
+
+class ProdutoSchemaKPI(ProdutoSchema):
+    valor_total_estoque: Series[float] = pa.Field(
+        ge=0
+    )  # The total stock value must be >= 0
+    categoria_normalizada: Series[
+        str
+    ]  # It is assumed that the category will be a string, no specific check is needed other than being a string
+    disponibilidade: Series[
+        bool
+    ]  # Availability is a boolean, so no specific check is needed

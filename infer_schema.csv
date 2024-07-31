@@ -1,0 +1,11 @@
+,id_produto,nome,quantidade,preco,categoria,email,valor_total_estoque,categoria_normalizada,disponibilidade
+0,1,Produto A,100.0,10.0,eletronicos,produtoA@example.com,1000.0,eletronicos,True
+1,2,Produto B,150.0,20.0,mobilia,produtoA@example.com,3000.0,mobilia,True
+2,3,Produto C,200.0,15.0,informatica,produtoA@example.com,3000.0,informatica,True
+3,4,Produto D,50.0,5.0,decoracao,produtoA@example.com,250.0,decoracao,True
+4,5,Produto E,120.0,22.0,eletronicos,produtoA@example.com,2640.0,eletronicos,True
+5,6,Produto F,80.0,45.0,mobilia,produtoA@example.com,3600.0,mobilia,True
+6,7,Produto G,60.0,120.0,informatica,produtoA@example.com,7200.0,informatica,True
+7,8,Produto H,30.0,85.0,decoracao,produtoA@example.com,2550.0,decoracao,True
+8,9,Produto I,90.0,55.0,eletronicos,produtoA@example.com,4950.0,eletronicos,True
+9,10,Produto J,20.0,100.0,mobilia,produtoA@example.com,2000.0,mobilia,True
