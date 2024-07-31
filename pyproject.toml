@@ -12,6 +12,7 @@ pandera = {extras = ["io"], version = "^0.20.3"}
 sqlalchemy = "^2.0.31"
 python-dotenv = "^1.0.1"
 psycopg2-binary = "^2.9.9"
+duckdb = "^1.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
